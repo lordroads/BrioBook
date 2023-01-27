@@ -6,7 +6,7 @@ WORKDIR /src
 
 COPY ["./BrioBook.Account/BrioBook.Account.csproj", "src/BrioBook.Account/"]
 
-RUN dotnet restore ["./BrioBook.Account/BrioBook.Account.csproj"]
+RUN dotnet restore "./BrioBook.Account/BrioBook.Account.csproj"
 
 COPY . .
 
