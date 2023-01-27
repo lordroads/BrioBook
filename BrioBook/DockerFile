@@ -10,7 +10,7 @@ RUN dotnet restore ["./BrioBook.Account/BrioBook.Account.csproj"]
 
 COPY . .
 
-WORKDIR "/src/ContainerNinja.API/"
+WORKDIR "/src/BrioBook.Account/"
 RUN dotnet build -c Release -o /app/build
 
 FROM build AS publish
