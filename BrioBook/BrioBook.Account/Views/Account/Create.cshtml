@@ -1,0 +1,63 @@
+﻿@model AccountViewModel
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<head>
+    <title>Регистрация</title>
+
+    <link rel="stylesheet" type="text/css" href="~/css/login.css">
+</head>
+
+<div class="wrapper fadeIn">
+    <div id="formContent">
+        <!-- Tabs Titles -->
+        <a asp-action="Index">
+            <h2 class="inactive underlineHover"> Sign In </h2>
+        </a>
+        <a asp-action="Create">
+            <h2 class="active">Sign Up </h2>
+        </a>
+
+        <!-- Icon -->
+        <div class="fadeIn first">
+            <img src="https://img.icons8.com/cotton/512/null/name--v2.png" id="icon" alt="User Icon" />
+        </div>
+
+        <!-- Login Form -->
+        <form asp-action="Create">
+
+            <div class="text-danger" asp-validation-summary="ModelOnly"></div>
+
+            <input type="hidden" name="returnUrl" value="@ViewData["returnUrl"]" />
+
+            <div class="form-group">
+                <input asp-for="Login" id="login" class="fadeIn second form-control" placeholder="login" />
+                <span asp-validation-for="Login" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <input asp-for="Password" id="password" class="fadeIn third form-control" placeholder="password" />
+                <span asp-validation-for="Password" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <input asp-for="ConfirmPassword" id="confirm_password" class="fadeIn third form-control" placeholder="password" />
+                <span asp-validation-for="ConfirmPassword" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <input type="submit" value="Log In" class="fadeIn fourth" />
+            </div>
+
+        </form>
+
+        <!-- Remind Passowrd -->
+        <div id="formFooter">
+            <a class="underlineHover" asp-action="Help">Forgot Password?</a>
+        </div>
+
+    </div>
+</div>

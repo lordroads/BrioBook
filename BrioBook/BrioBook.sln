@@ -1,0 +1,36 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.4.33122.133
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BrioBook.Account", "BrioBook.Account\BrioBook.Account.csproj", "{DC5E8193-D08C-4E06-9CFF-5BBC2E8A1B59}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BrioBook.Users.DAL", "BrioBook.Users.DAL\BrioBook.Users.DAL.csproj", "{B238D149-CA35-4D52-A310-AD5CB119B6B3}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Элементы решения", "Элементы решения", "{58FC89D0-F482-40D8-84F7-91C1A752992C}"
+	ProjectSection(SolutionItems) = preProject
+		DockerFile = DockerFile
+	EndProjectSection
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{DC5E8193-D08C-4E06-9CFF-5BBC2E8A1B59}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DC5E8193-D08C-4E06-9CFF-5BBC2E8A1B59}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DC5E8193-D08C-4E06-9CFF-5BBC2E8A1B59}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DC5E8193-D08C-4E06-9CFF-5BBC2E8A1B59}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B238D149-CA35-4D52-A310-AD5CB119B6B3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B238D149-CA35-4D52-A310-AD5CB119B6B3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B238D149-CA35-4D52-A310-AD5CB119B6B3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B238D149-CA35-4D52-A310-AD5CB119B6B3}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {B48E5C37-6D85-4351-82AF-C4D57F8B4F57}
+	EndGlobalSection
+EndGlobal

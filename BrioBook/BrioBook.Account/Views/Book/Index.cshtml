@@ -1,0 +1,56 @@
+﻿@model IEnumerable<Book>
+
+@{
+    ViewData["Title"] = "Книги";
+}
+
+<div class="text-center">
+    <h1 class="display-4">База данных книг</h1>
+</div>
+
+<a asp-action="Index" class="btn btn-success">Создать</a>
+
+@{
+    if (Model.Any())
+    {
+        <table class="table">
+            <thead>
+                <tr>
+                    <th></th>
+                    <th>Id</th>
+                    <th>Название</th>
+                    <th>Автор</th>
+                    <th>Жанр</th>
+                    <th>Статус</th>
+                    <th></th>
+                </tr>
+            </thead>
+            @foreach (var book in Model)
+            {
+                <tr>
+                    <td>
+                        <a asp-action="Delete" asp-route-id="@book.Id" class="text-danger">
+                            <i class="fa fa-trash-alt"></i>
+                        </a>
+                    </td>
+                    <td>@book.Id</td>
+                    <td>
+                        <a asp-action="Details" asp-route-id="@book.Id">@book.Title</a>
+                    </td>
+                    <td>@book.Author</td>
+                    <td>@book.Genre</td>
+                    <td>@book.Status</td>
+                    <td>
+                        <a asp-action="Edit" asp-route-id="@book.Id">
+                            <i class="fa fa-user-edit"></i>
+                        </a>
+                    </td>
+                </tr>
+            }
+        </table>
+    }
+    else
+    {
+        <p>Книг пока нет.</p>
+    }
+}
