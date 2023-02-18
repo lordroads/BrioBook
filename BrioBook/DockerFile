@@ -1,7 +1,7 @@
 FROM mcr.microsoft.com/dotnet/sdk:6.0 as build
 WORKDIR /src
 
-COPY *.csproj ./
+COPY BrioBook.Account/*.csproj ./
 RUN dotnet restore
 
 COPY . ./
