@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
-VisualStudioVersion = 17.4.33122.133
+VisualStudioVersion = 17.5.33414.496
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BrioBook.Account", "BrioBook.Account\BrioBook.Account.csproj", "{DC5E8193-D08C-4E06-9CFF-5BBC2E8A1B59}"
 EndProject
@@ -11,6 +11,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Элементы решен
 	ProjectSection(SolutionItems) = preProject
 		DockerFile = DockerFile
 	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Brio.Authentication", "Brio.Authentication\Brio.Authentication.csproj", "{957E1A60-0CC3-4490-B4A3-12CDD67B652C}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -26,6 +28,10 @@ Global
 		{B238D149-CA35-4D52-A310-AD5CB119B6B3}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{B238D149-CA35-4D52-A310-AD5CB119B6B3}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{B238D149-CA35-4D52-A310-AD5CB119B6B3}.Release|Any CPU.Build.0 = Release|Any CPU
+		{957E1A60-0CC3-4490-B4A3-12CDD67B652C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{957E1A60-0CC3-4490-B4A3-12CDD67B652C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{957E1A60-0CC3-4490-B4A3-12CDD67B652C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{957E1A60-0CC3-4490-B4A3-12CDD67B652C}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

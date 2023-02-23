@@ -13,7 +13,7 @@ namespace BrioBook.Account
 
             #region Add Service Integrations
 
-            builder.Services.AddSingleton<UsersDbContext>();
+            builder.Services.AddSingleton<BrioDbContext>();
             builder.Services.AddTransient<IManagerAccounts, ManagerAccounts>();
             builder.Services.AddTransient<IUserRepository, UserRepository>();
 

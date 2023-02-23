@@ -6,18 +6,18 @@ namespace BrioBook.Account.Models.Views;
 
 public class AccountViewModel : IValidatableObject
 {
-    [Required(ErrorMessage = "Необходимо ввести")]
+    [Required(ErrorMessage = "пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ")]
     [DataType(DataType.EmailAddress)]
-    [RegularExpression(@"^[A-Za-z0-9%+-]+@[A-Za-z0-9-]+.+.[A-Za-z]{2,4}$", ErrorMessage = "Не корректно введен адрес почты")]
+    [RegularExpression(@"^[A-Za-z0-9%+-]+@[A-Za-z0-9-]+.+.[A-Za-z]{2,4}$", ErrorMessage = "пїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ")]
     public string Login { get; set; }
 
-    [Required(ErrorMessage = "Необходимо ввести")]
+    [Required(ErrorMessage = "пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ")]
     [DataType(DataType.Password)]
     public string Password { get; set; }
 
-    [Required(ErrorMessage = "Необходимо ввести")]
+    [Required(ErrorMessage = "пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ")]
     [DataType(DataType.Password)]
-    [Compare("Password", ErrorMessage = "Пароли не совпабают")]
+    [Compare("Password", ErrorMessage = "пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ")]
     public string ConfirmPassword { get; set; }
 
     public IEnumerable<ValidationResult> Validate(ValidationContext validationContext)
@@ -25,15 +25,15 @@ public class AccountViewModel : IValidatableObject
 
         if (string.IsNullOrWhiteSpace(Login))
         {
-            yield return new ValidationResult("Введите электронный адрес!", new List<string>() { "Login" });
+            yield return new ValidationResult("пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ!", new List<string>() { "Login" });
         }
         if (string.IsNullOrWhiteSpace(Password))
         {
-            yield return new ValidationResult("Введите пароль!", new List<string>() { "Password" });
+            yield return new ValidationResult("пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ!", new List<string>() { "Password" });
         }
         if (string.IsNullOrWhiteSpace(ConfirmPassword))
         {
-            yield return new ValidationResult("Введите подтверждение пароля!", new List<string>() { "ConfirmPassword" });
+            yield return new ValidationResult("пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ!", new List<string>() { "ConfirmPassword" });
         }
 
         yield break;

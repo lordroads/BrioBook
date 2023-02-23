@@ -5,9 +5,9 @@ namespace BrioBook.Account.Services.Impl;
 
 public class UserRepository : IUserRepository
 {
-    private readonly UsersDbContext _context;
+    private readonly BrioDbContext _context;
 
-    public UserRepository(UsersDbContext context)
+    public UserRepository(BrioDbContext context)
     {
         _context = context;
     }
