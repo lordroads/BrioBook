@@ -1,3 +1,4 @@
+using Brio.Authentication.Models;
 using Brio.Authentication.Services;
 using Brio.Authentication.Services.Impl;
 using BrioBook.Users.DAL;
@@ -17,12 +18,17 @@ namespace Brio.Authentication
                 .AddJsonFile("appsettings.json")
                 .AddJsonFile($"appsettings.{builder.Environment.EnvironmentName}.json", true);
 
+            builder.Services.Configure<Settings>(options =>
+            {
+                builder.Configuration.GetSection("Settings:ConnectionStrings:ConfirmService").Bind(options);
+            });
+
             #endregion
 
             builder.Services.AddSingleton<BrioDbContext>();
+            builder.Services.AddScoped<HttpClient>();
             builder.Services.AddScoped<IAuthenticationService, AuthenticationService>();
             builder.Services.AddScoped<IUserRepository, UserRepository>();
-            builder.Services.AddScoped<IConfirmIdsRepository, ConfirmIdsRepository>(); //TODO: отдельный сервис
 
             builder.Services.AddControllers();
 

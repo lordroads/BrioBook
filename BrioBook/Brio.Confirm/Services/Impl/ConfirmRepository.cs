@@ -1,13 +1,13 @@
-﻿using BrioBook.Users.DAL;
+using BrioBook.Users.DAL;
 using BrioBook.Users.DAL.Models;
 
-namespace Brio.Authentication.Services.Impl;
+namespace Brio.Confirm.Services.Impl;
 
-public class ConfirmIdsRepository : IConfirmIdsRepository
+public class ConfirmRepository : IConfirmRepository
 {
     private readonly BrioDbContext _context;
 
-    public ConfirmIdsRepository(BrioDbContext context)
+    public ConfirmRepository(BrioDbContext context)
     {
         _context = context;
     }
