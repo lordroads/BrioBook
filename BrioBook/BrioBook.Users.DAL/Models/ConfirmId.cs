@@ -2,6 +2,6 @@
 
 public class ConfirmId
 {
-    public Guid Id { get; set; }
+    public string Id { get; set; }
     public int UserId { get; set; }
 }

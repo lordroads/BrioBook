@@ -36,7 +36,7 @@ public class UserRepository : IUserRepository
 
     public User Get(int key)
     {
-        var user = _context.Users.FirstOrDefault(user => user.UserId.Equals(key));
+        var user = _context.Users.FirstOrDefault(user => user.UserId == key);
 
         if (user is null)
         {

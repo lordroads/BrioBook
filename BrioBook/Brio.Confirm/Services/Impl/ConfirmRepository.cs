@@ -13,21 +13,21 @@ public class ConfirmRepository : IConfirmRepository
     }
 
 
-    public Guid Create(ConfirmId data)
+    public string Create(ConfirmId data)
     {
         var id = Guid.NewGuid();
-        data.Id = id;
+        data.Id = id.ToString();
         _context.ConfirmIds.Add(data);
 
-        return id;
+        return id.ToString();
     }
 
-    public bool Delete(Guid key)
+    public bool Delete(string key)
     {
         return _context.ConfirmIds.Remove(new ConfirmId { Id = key });
     }
 
-    public ConfirmId Get(Guid key)
+    public ConfirmId Get(string key)
     {
         return _context.ConfirmIds.FirstOrDefault(confirm => confirm.Id == key);
     }

@@ -15,6 +15,8 @@ public class UserRepository : IUserRepository
     {
         int nextCount = _context.Users.Count + 1;
 
+        data.UserId = nextCount;
+
         _context.Users.Add(data);
 
         return nextCount;

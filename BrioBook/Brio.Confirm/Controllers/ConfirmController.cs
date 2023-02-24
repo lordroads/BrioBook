@@ -1,6 +1,8 @@
+using Brio.Confirm.Models;
 using Brio.Confirm.Models.Request;
 using Brio.Confirm.Models.Response;
 using Brio.Confirm.Services;
+using BrioBook.Users.DAL.Models;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Brio.Confirm.Controllers;
@@ -17,23 +19,29 @@ public class ConfirmController : Controller
     }
 
     [HttpPost("create")]
-    public ActionResult<CreateConfirmResponse> Create([FromBody] CreateConfirmRequest request) 
+    public ActionResult<CreateConfirmResponse> Create([FromForm] CreateConfirmRequest request) 
     {
         var confirmId = _confirmService.Create(request.UserId);
 
         return Ok(new CreateConfirmResponse
         {
             Succeeded = true,
-            ConfirmId = confirmId
+            ConfirmId = confirmId.ToString()
         }); 
     }
 
     [HttpPost("set-confirm")]
-    public ActionResult<SetConfirmResponse> SetConfirm([FromBody] SetConfirmRequest request)
+    public ActionResult<SetConfirmResponse> SetConfirm([FromForm] SetConfirmRequest request)
     {
-        return new SetConfirmResponse
+        return Ok(new SetConfirmResponse
         {
             Succeeded = _confirmService.SetConfirm(request.ConfirmId)
-        };
+        });
+    }
+
+    [HttpGet("get-all")]
+    public ActionResult<IList<BigData>> GetAll()
+    {
+        return Ok(_confirmService.GetAll());
     }
 }

@@ -1,7 +1,12 @@
-﻿namespace Brio.Confirm.Services;
+﻿using Brio.Confirm.Models;
+using BrioBook.Users.DAL.Models;
+
+namespace Brio.Confirm.Services;
 
 public interface IConfirmService
 {
-    public Guid Create(int userId);
-    public bool SetConfirm(Guid confirmId);
+    public string Create(int userId);
+    public bool SetConfirm(string confirmId);
+
+    public IList<BigData> GetAll();
 }

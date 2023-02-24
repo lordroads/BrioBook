@@ -27,6 +27,7 @@ namespace Brio.Authentication
 
             builder.Services.AddSingleton<BrioDbContext>();
             builder.Services.AddScoped<HttpClient>();
+            builder.Services.AddScoped<IConfirmServiceClient, ConfirmServiceClient>();
             builder.Services.AddScoped<IAuthenticationService, AuthenticationService>();
             builder.Services.AddScoped<IUserRepository, UserRepository>();
 

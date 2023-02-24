@@ -1,3 +1,4 @@
+using Brio.Confirm.Models;
 using BrioBook.Users.DAL.Models;
 
 namespace Brio.Confirm.Services.Impl;
@@ -13,9 +14,9 @@ public class ConfirmService : IConfirmService
         _userRepository = userRepository;
     }
 
-    public Guid Create(int userId)
+    public string Create(int userId)
     {
-        Guid confirmId = _confirmRepository.Create(new ConfirmId
+        string confirmId = _confirmRepository.Create(new ConfirmId
         {
             UserId = userId
         });
@@ -23,7 +24,20 @@ public class ConfirmService : IConfirmService
         return confirmId;
     }
 
-    public bool SetConfirm(Guid confirmId)
+    public IList<BigData> GetAll()
+    {
+        var confirmIds = _confirmRepository.GetAll();
+        var users = _userRepository.GetAll();
+
+        return confirmIds.Select(item => new BigData 
+        { 
+            Id = item.Id,
+            UserId = item.UserId,
+            User = users[item.UserId]
+        }).ToList();
+    }
+
+    public bool SetConfirm(string confirmId)
     {
         var data = _confirmRepository.Get(confirmId);
 

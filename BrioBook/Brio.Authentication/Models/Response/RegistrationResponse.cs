@@ -2,6 +2,6 @@
 {
     public class RegistrationResponse : BaseResponse
     {
-        public Guid ConfirmId { get; set; }
+        public string? ConfirmId { get; set; }
     }
 }
