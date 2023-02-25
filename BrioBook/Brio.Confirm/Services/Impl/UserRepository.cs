@@ -1,5 +1,6 @@
-﻿using BrioBook.Users.DAL;
-using BrioBook.Users.DAL.Models;
+﻿using Brio.Database.DAL;
+using Brio.Database.DAL.Models;
+using Microsoft.EntityFrameworkCore;
 
 namespace Brio.Confirm.Services.Impl;
 
@@ -13,37 +14,27 @@ public class UserRepository : IUserRepository
     }
     public int Create(User data)
     {
-        int nextCount = _context.Users.Count + 1;
+        var result = _context.Users.Add(data);
 
-        _context.Users.Add(data);
+        _context.SaveChanges();
 
-        return nextCount;
+        return result.Entity.Id;
     }
 
     public bool Delete(int key)
     {
-        var result = _context.Users.FirstOrDefault(user => user.UserId.Equals(key));
+        var entity = _context.Users.FirstOrDefault(user => user.Id == key);
 
-        if (result is null)
-        {
-            return false;
-        }
+        var result = _context.Users.Remove(entity);
 
-        _context.Users.Remove(result);
+        _context.SaveChanges();
 
-        return true;
+        return result.State == EntityState.Deleted;
     }
 
     public User Get(int key)
     {
-        var user = _context.Users.FirstOrDefault(user => user.UserId == key);
-
-        if (user is null)
-        {
-            return null;
-        }
-
-        return user;
+        return _context.Users.FirstOrDefault(user => user.Id == key);
     }
 
     public User GetByValue(string value)
@@ -58,17 +49,10 @@ public class UserRepository : IUserRepository
 
     public bool Update(User data)
     {
-        var user = _context.Users.FirstOrDefault(u => u.UserId == data.UserId);
+        _context.Update(data);
 
-        if (user is null)
-        {
-            return false;
-        }
+        var result = _context.SaveChanges();
 
-        _context.Users.Remove(user);
-
-        _context.Users.Add(data);
-
-        return true;
+        return result > 0;
     }
 }

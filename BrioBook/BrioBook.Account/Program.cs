@@ -1,6 +1,5 @@
-using BrioBook.Account.Services;
-using BrioBook.Account.Services.Impl;
-using BrioBook.Users.DAL;
+using BrioBook.Client.Services;
+using BrioBook.Client.Services.Impl;
 using Microsoft.AspNetCore.Authentication.Cookies;
 
 namespace BrioBook.Account
@@ -13,9 +12,8 @@ namespace BrioBook.Account
 
             #region Add Service Integrations
 
-            builder.Services.AddSingleton<BrioDbContext>();
-            builder.Services.AddTransient<IManagerAccounts, ManagerAccounts>();
-            builder.Services.AddTransient<IUserRepository, UserRepository>();
+            builder.Services.AddScoped<HttpClient>(); //TODO: Add Polly
+            builder.Services.AddScoped<IAuthenticationServiceClient, AuthenticationServiceClient>();
 
             #endregion
 
@@ -32,8 +30,6 @@ namespace BrioBook.Account
                     options.LogoutPath = "/Account/Index";
                 });
             builder.Services.AddAuthorization();
-
-            //builder.Services.AddSingleton<IAuthenticateService, AuthenticateService>();
 
             #endregion
 

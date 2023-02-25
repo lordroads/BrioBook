@@ -1,6 +1,8 @@
-﻿using Brio.Authentication.Models.Dto;
+﻿using Brio.Authentication.Models;
+using Brio.Authentication.Models.Dto;
 using Brio.Authentication.Utils;
-using BrioBook.Users.DAL.Models;
+using Brio.Database.DAL.Models;
+using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using System.Security.Claims;
 
@@ -16,19 +18,19 @@ public class AuthenticationService : IAuthenticationService
     }
 
 
-    public ClaimsPrincipal GetClaims(User user)
+    public AuthenticationUserData GetClaims(User user)
     {
-        var claims = new List<Claim>
+        var authenticationUserData = new AuthenticationUserData
         {
-            new Claim(ClaimTypes.Email, user.Login),
-            new Claim(ClaimTypes.Role, user.IsAdmin ? "Admin" : "User")
+            AuthenticationScheme = CookieAuthenticationDefaults.AuthenticationScheme,
+            Claims = new Dictionary<string, string>
+            {
+                { ClaimTypes.Email, user.Login },
+                { ClaimTypes.Role, user.IsAdmin ? "Admin" : "User" }
+            }
         };
 
-        ClaimsIdentity claimsIdentity = new ClaimsIdentity(claims, CookieAuthenticationDefaults.AuthenticationScheme);
-
-        ClaimsPrincipal claimsPrincipal = new ClaimsPrincipal(claimsIdentity);
-
-        return claimsPrincipal;
+        return authenticationUserData;
     }
 
     public (User user, bool Succeeded, string Errors) Login(UserDto userDto)

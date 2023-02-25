@@ -1,5 +1,6 @@
-using BrioBook.Users.DAL;
-using BrioBook.Users.DAL.Models;
+using Brio.Database.DAL;
+using Brio.Database.DAL.Models;
+using Microsoft.EntityFrameworkCore;
 
 namespace Brio.Confirm.Services.Impl;
 
@@ -13,21 +14,26 @@ public class ConfirmRepository : IConfirmRepository
     }
 
 
-    public string Create(ConfirmId data)
+    public Guid Create(ConfirmId data)
     {
-        var id = Guid.NewGuid();
-        data.Id = id.ToString();
-        _context.ConfirmIds.Add(data);
+        var result = _context.ConfirmIds.Add(data);
 
-        return id.ToString();
+        _context.SaveChanges();
+
+        return result.Entity.Id;
     }
 
-    public bool Delete(string key)
+    public bool Delete(Guid key)
     {
-        return _context.ConfirmIds.Remove(new ConfirmId { Id = key });
+        var entity = Get(key);
+
+        var result = _context.ConfirmIds.Remove(entity);
+        _context.SaveChanges();
+
+        return result.State == EntityState.Deleted;
     }
 
-    public ConfirmId Get(string key)
+    public ConfirmId Get(Guid key)
     {
         return _context.ConfirmIds.FirstOrDefault(confirm => confirm.Id == key);
     }
@@ -46,13 +52,10 @@ public class ConfirmRepository : IConfirmRepository
 
     public bool Update(ConfirmId data)
     {
-        var result = _context.ConfirmIds.Remove(data);
+        var result = _context.ConfirmIds.Update(data);
 
-        if (result)
-        {
-            _context.ConfirmIds.Add(data);
-        }
+        _context.SaveChanges();
 
-        return result;
+        return result.State == EntityState.Modified;
     }
 }

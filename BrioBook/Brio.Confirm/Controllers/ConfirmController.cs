@@ -2,7 +2,6 @@ using Brio.Confirm.Models;
 using Brio.Confirm.Models.Request;
 using Brio.Confirm.Models.Response;
 using Brio.Confirm.Services;
-using BrioBook.Users.DAL.Models;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Brio.Confirm.Controllers;

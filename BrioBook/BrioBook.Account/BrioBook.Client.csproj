@@ -13,10 +13,11 @@
 
   <ItemGroup>
     <PackageReference Include="Microsoft.AspNet.Mvc" Version="5.2.9" />
+    <PackageReference Include="Newtonsoft.Json" Version="13.0.2" />
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\BrioBook.Users.DAL\BrioBook.Users.DAL.csproj" />
+    <ProjectReference Include="..\BrioBook.Users.DAL\Brio.Database.DAL.csproj" />
   </ItemGroup>
 
   <ItemGroup>

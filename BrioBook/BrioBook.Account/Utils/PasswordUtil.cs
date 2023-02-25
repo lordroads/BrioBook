@@ -1,7 +1,7 @@
 using System.Security.Cryptography;
 using System.Text;
 
-namespace BrioBook.Account.Utils;
+namespace BrioBook.Client.Utils;
 
 public class PasswordUtil
 {

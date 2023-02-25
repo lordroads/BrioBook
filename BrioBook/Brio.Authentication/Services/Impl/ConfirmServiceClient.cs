@@ -39,8 +39,6 @@ public class ConfirmServiceClient : IConfirmServiceClient
             {
                 var answer = httpResponse.Content.ReadAsStringAsync().Result;
 
-                //return (AllHddMetricsApiResponse)JsonConvert.DeserializeObject(answer, typeof(AllHddMetricsApiResponse));
-                //RegistrationResponse? response = JsonSerializer.Deserialize<RegistrationResponse>(answer);
                 RegistrationResponse? response = (RegistrationResponse)JsonConvert.DeserializeObject(answer, typeof(RegistrationResponse));
 
                 if (!response.Succeeded)

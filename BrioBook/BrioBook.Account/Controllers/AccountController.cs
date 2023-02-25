@@ -1,116 +1,103 @@
-﻿using BrioBook.Account.Models.Views;
-using BrioBook.Account.Services;
+﻿using BrioBook.Client.Models.Views;
+using BrioBook.Client.Services;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.Security.Claims;
 
-namespace BrioBook.Account.Controllers
+namespace BrioBook.Client.Controllers;
+
+[AllowAnonymous]
+public class AccountController : Controller
 {
-    [AllowAnonymous]
-    public class AccountController : Controller
+    private readonly IAuthenticationServiceClient _authenticateServiceClient;
+
+    public AccountController(IAuthenticationServiceClient authenticateServiceClient)
     {
-        private readonly IManagerAccounts _managerAccounts;
+        _authenticateServiceClient = authenticateServiceClient;
+    }
 
-        public AccountController(IManagerAccounts managerAccounts)
+    public IActionResult Index(string returnUrl)
+    {
+        ViewData["returnUrl"] = returnUrl;
+
+        return View();
+    }
+    private IList<Claim> GetClaims(Dictionary<string, string> pairs)
+    {
+        List<Claim> claims = new List<Claim>();
+
+        foreach (var pair in pairs)
         {
-            _managerAccounts = managerAccounts;
+            claims.Add(new Claim(pair.Key, pair.Value));
         }
 
-        public IActionResult Index(string returnUrl)
+        return claims;
+    }
+
+    [HttpPost]
+    public async Task<IActionResult> Index([FromForm] AccountViewModel data, string returnUrl)
+    {
+        var result = _authenticateServiceClient.Login(data.Login, data.Password);
+
+        if (result.Succeeded & result.AuthenticationUserData is not null)
         {
-            ViewData["returnUrl"] = returnUrl;
+            ClaimsIdentity claimsIdentity = new ClaimsIdentity(GetClaims(result.AuthenticationUserData.Claims), result.AuthenticationUserData.AuthenticationScheme);
 
-            return View();
-        }
+            ClaimsPrincipal claimsPrincipal = new ClaimsPrincipal(claimsIdentity);
 
-        [HttpPost]
-        public async Task<IActionResult> Index([FromForm] AccountViewModel data, string returnUrl)
-        {
-            var result = await _managerAccounts.SingIn(data.Login, data.Password);
+            await HttpContext.SignInAsync(result.AuthenticationUserData.AuthenticationScheme, claimsPrincipal);
 
-            if (result.Succeeded)
+            if (!string.IsNullOrEmpty(returnUrl))
             {
-                var claims = new List<Claim>
-                    {
-                        new Claim(ClaimTypes.Email, data.Login)
-                    };
-
-                ClaimsIdentity claimsIdentity = new ClaimsIdentity(claims, CookieAuthenticationDefaults.AuthenticationScheme);
-
-                ClaimsPrincipal claimsPrincipal = new ClaimsPrincipal(claimsIdentity);
-
-                await HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, claimsPrincipal);
-
-                if (!string.IsNullOrEmpty(returnUrl))
-                {
-                    return Redirect(returnUrl);
-                }
-                else
-                {
-                    return RedirectToAction("Index", "Home");
-                }
+                return Redirect(returnUrl);
             }
-
-            ModelState.AddModelError(string.Empty, result.Errors);
-
-            return View(data);
-        }
-
-        public IActionResult Create(string returnUrl)
-        {
-            ViewData["returnUrl"] = returnUrl;
-
-            return View();
-        }
-
-        [HttpPost]
-        public async Task<IActionResult> Create(AccountViewModel data, [FromRoute] string returnUrl)
-        {
-
-            var result = await _managerAccounts.SingUp(data.Login, data.Password);
-
-            if (result.Succeeded)
+            else
             {
-                var claims = new List<Claim>
-                    {
-                        new Claim(ClaimTypes.Email, data.Login)
-                    };
-
-                ClaimsIdentity claimsIdentity = new ClaimsIdentity(claims, CookieAuthenticationDefaults.AuthenticationScheme);
-
-                ClaimsPrincipal claimsPrincipal = new ClaimsPrincipal(claimsIdentity);
-
-                await HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, claimsPrincipal);
-
-                if (!string.IsNullOrEmpty(returnUrl))
-                {
-                    return Redirect(returnUrl);
-                }
-                else
-                {
-                    return RedirectToAction("Index", "Home");
-                }
+                return RedirectToAction("Index", "Home");
             }
-
-            ModelState.AddModelError(string.Empty, result.Errors);
-
-            return View(data);
         }
 
-        public async Task<IActionResult> LogOut()
+        ModelState.AddModelError(string.Empty, result.Errors);
+
+        return View(data);
+    }
+
+    public IActionResult Create(string returnUrl)
+    {
+        ViewData["returnUrl"] = returnUrl;
+
+        return View();
+    }
+
+    [HttpPost]
+    public async Task<IActionResult> Create(AccountViewModel data, [FromRoute] string returnUrl)
+    {
+
+        var result = _authenticateServiceClient.Registration(data.Login, data.Password);
+
+        if (result.Succeeded)
         {
-            await HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
-
-            return RedirectToAction("Index", "Home");
+            return View("Seccesed", result);
         }
 
-        public IActionResult AccessDenied(string returnUrl)
-        {
-            ViewData["returnUrl"] = returnUrl;
+        ModelState.AddModelError(string.Empty, result.Errors);
 
-            return View();
-        }
+        return View(data);
+    }
+
+    public async Task<IActionResult> LogOut()
+    {
+        await HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
+
+        return RedirectToAction("Index", "Home");
+    }
+
+    public IActionResult AccessDenied(string returnUrl)
+    {
+        ViewData["returnUrl"] = returnUrl;
+
+        return View();
     }
 }

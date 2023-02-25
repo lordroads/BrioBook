@@ -1,0 +1,39 @@
+﻿@model RegistrationResponse
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<head>
+    <title>Подтверждение</title>
+
+    <link rel="stylesheet" type="text/css" href="~/css/login.css">
+</head>
+
+<div class="wrapper fadeIn">
+    <div id="formContent">
+
+        <h2 class="inactive underlineHover"> Поздравляем! </h2>
+
+        <!-- Icon -->
+        <div class="fadeIn first">
+            <img src="https://img.icons8.com/cotton/512/null/name--v2.png" id="icon" alt="User Icon" />
+        </div>
+
+        <!-- Login Form -->
+        <p>
+            Вы успешно прошли авторизацию. Вам на почту отправленно письмо для подтверждения Email.
+        </p>
+        <p>
+            Данные для отладки - @Model.ConfirmId
+            Error msg - @Model.Errors
+        </p>
+
+        <!-- Remind Passowrd -->
+        <div id="formFooter">
+            <a class="underlineHover" asp-action="Help">Forgot Password?</a>
+        </div>
+
+    </div>
+</div>

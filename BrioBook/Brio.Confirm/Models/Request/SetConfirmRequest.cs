@@ -2,5 +2,5 @@
 
 public class SetConfirmRequest
 {
-    public string ConfirmId { get; set; }
+    public Guid ConfirmId { get; set; }
 }

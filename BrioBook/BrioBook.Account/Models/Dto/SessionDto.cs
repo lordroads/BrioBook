@@ -1,11 +1,8 @@
-using BrioBook.Account.Models.Dto;
+namespace BrioBook.Client.Models.Dto;
 
-namespace EmployeeService.Models.Dto
+public class SessionDto
 {
-    public class SessionDto
-    {
-        public int SessionId { get; set; }
-        public string SessionToken { get; set; }
-        public AccountDto Account { get; set; }
-    }
+    public int SessionId { get; set; }
+    public string SessionToken { get; set; }
+    public AccountDto Account { get; set; }
 }

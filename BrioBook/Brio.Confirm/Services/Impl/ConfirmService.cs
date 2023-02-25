@@ -1,5 +1,5 @@
 using Brio.Confirm.Models;
-using BrioBook.Users.DAL.Models;
+using Brio.Database.DAL.Models;
 
 namespace Brio.Confirm.Services.Impl;
 
@@ -14,9 +14,9 @@ public class ConfirmService : IConfirmService
         _userRepository = userRepository;
     }
 
-    public string Create(int userId)
+    public Guid Create(int userId)
     {
-        string confirmId = _confirmRepository.Create(new ConfirmId
+        var confirmId = _confirmRepository.Create(new ConfirmId
         {
             UserId = userId
         });
@@ -33,11 +33,11 @@ public class ConfirmService : IConfirmService
         { 
             Id = item.Id,
             UserId = item.UserId,
-            User = users[item.UserId]
+            User = users[item.UserId - 1]
         }).ToList();
     }
 
-    public bool SetConfirm(string confirmId)
+    public bool SetConfirm(Guid confirmId)
     {
         var data = _confirmRepository.Get(confirmId);
 

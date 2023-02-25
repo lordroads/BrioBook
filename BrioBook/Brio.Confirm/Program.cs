@@ -1,6 +1,8 @@
+using Brio.Confirm.Models;
 using Brio.Confirm.Services;
 using Brio.Confirm.Services.Impl;
-using BrioBook.Users.DAL;
+using Brio.Database.DAL;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.OpenApi.Models;
 
 namespace Brio.Confirm
@@ -19,12 +21,25 @@ namespace Brio.Confirm
 
             #endregion
 
-            builder.Services.AddSingleton<BrioDbContext>();
             builder.Services.AddScoped<IConfirmService, ConfirmService>();
             builder.Services.AddScoped<IConfirmRepository, ConfirmRepository>();
             builder.Services.AddScoped<IUserRepository, UserRepository>();
 
             builder.Services.AddControllers();
+
+            #region Configure EF
+
+            builder.Services.AddDbContext<BrioDbContext>(options =>
+            {
+                options.UseSqlServer(builder.Configuration["DatabaseOptions:ConnecrionStringLocal"]);
+            });
+
+            builder.Services.Configure<DatabaseOptions>(options =>
+            {
+                builder.Configuration.GetSection("DatabaseOptions").Bind(options);
+            });
+
+            #endregion
 
             builder.Services.AddEndpointsApiExplorer();
             builder.Services.AddSwaggerGen(setup =>

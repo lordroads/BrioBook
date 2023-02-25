@@ -3,9 +3,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.5.33414.496
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BrioBook.Account", "BrioBook.Account\BrioBook.Account.csproj", "{DC5E8193-D08C-4E06-9CFF-5BBC2E8A1B59}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BrioBook.Client", "BrioBook.Account\BrioBook.Client.csproj", "{DC5E8193-D08C-4E06-9CFF-5BBC2E8A1B59}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BrioBook.Users.DAL", "BrioBook.Users.DAL\BrioBook.Users.DAL.csproj", "{B238D149-CA35-4D52-A310-AD5CB119B6B3}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Brio.Database.DAL", "BrioBook.Users.DAL\Brio.Database.DAL.csproj", "{B238D149-CA35-4D52-A310-AD5CB119B6B3}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Элементы решения", "Элементы решения", "{58FC89D0-F482-40D8-84F7-91C1A752992C}"
 	ProjectSection(SolutionItems) = preProject
@@ -14,7 +14,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Элементы решен
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Brio.Authentication", "Brio.Authentication\Brio.Authentication.csproj", "{957E1A60-0CC3-4490-B4A3-12CDD67B652C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Brio.Confirm", "Brio.Confirm\Brio.Confirm.csproj", "{E3F375B6-B0BC-40D7-AF66-857FCC0F57CB}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Brio.Confirm", "Brio.Confirm\Brio.Confirm.csproj", "{E3F375B6-B0BC-40D7-AF66-857FCC0F57CB}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

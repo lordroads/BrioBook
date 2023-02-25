@@ -1,5 +1,6 @@
-﻿using BrioBook.Users.DAL;
-using BrioBook.Users.DAL.Models;
+﻿using Brio.Database.DAL;
+using Brio.Database.DAL.Models;
+using Microsoft.EntityFrameworkCore;
 
 namespace Brio.Authentication.Services.Impl;
 
@@ -13,18 +14,16 @@ public class UserRepository : IUserRepository
     }
     public int Create(User data)
     {
-        int nextCount = _context.Users.Count + 1;
+        var entity = _context.Users.Add(data);
 
-        data.UserId = nextCount;
+        _context.SaveChanges();
 
-        _context.Users.Add(data);
-
-        return nextCount;
+        return entity.Entity.Id;
     }
 
     public bool Delete(int key)
     {
-        var result = _context.Users.FirstOrDefault(user => user.UserId.Equals(key));
+        var result = _context.Users.FirstOrDefault(user => user.Id == key);
 
         if (result is null)
         {
@@ -32,25 +31,19 @@ public class UserRepository : IUserRepository
         }
 
         _context.Users.Remove(result);
+        _context.SaveChanges();
 
         return true;
     }
 
     public User Get(int key)
     {
-        var user = _context.Users.FirstOrDefault(user => user.UserId.Equals(key));
-
-        if (user is null)
-        {
-            return null;
-        }
-
-        return user;
+        return _context.Users.FirstOrDefault(user => user.Id == key);
     }
 
     public User GetByValue(string value)
     {
-        return _context.Users.FirstOrDefault(user => user.Login.Equals(value));
+        return _context.Users.FirstOrDefault(user => user.Login == value);
     }
 
     public IList<User> GetAll()
@@ -60,17 +53,10 @@ public class UserRepository : IUserRepository
 
     public bool Update(User data)
     {
-        var user = _context.Users.FirstOrDefault(u => u.UserId == data.UserId);
+        var result = _context.Users.Update(data);
 
-        if (user is null)
-        {
-            return false;
-        }
+        _context.SaveChanges();
 
-        _context.Users.Remove(user);
-
-        _context.Users.Add(data);
-
-        return true;
+        return result.State == EntityState.Modified;
     }
 }

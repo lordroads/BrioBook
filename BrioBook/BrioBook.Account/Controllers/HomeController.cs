@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
-namespace BrioBook.Account.Controllers
+namespace BrioBook.Client.Controllers
 {
     [Authorize]
     public class HomeController : Controller

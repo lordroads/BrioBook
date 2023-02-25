@@ -1,7 +1,15 @@
-﻿namespace BrioBook.Users.DAL.Models;
+﻿using System.ComponentModel.DataAnnotations.Schema;
+using System.ComponentModel.DataAnnotations;
+
+namespace Brio.Database.DAL.Models;
 
 public class ConfirmId
 {
-    public string Id { get; set; }
+    [Key, DatabaseGenerated(DatabaseGeneratedOption.Identity)]
+    public Guid Id { get; set; }
+
+    [ForeignKey(nameof(User))]
     public int UserId { get; set; }
+
+    public virtual User User { get; set; }
 }

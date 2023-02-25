@@ -1,4 +1,4 @@
-namespace BrioBook.Account.Models.Requests;
+namespace BrioBook.Client.Models.Requests;
 
 public class AuthenticationRequest
 {

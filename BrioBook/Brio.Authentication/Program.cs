@@ -1,8 +1,10 @@
 using Brio.Authentication.Models;
 using Brio.Authentication.Services;
 using Brio.Authentication.Services.Impl;
-using BrioBook.Users.DAL;
+using Brio.Database.DAL;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.OpenApi.Models;
+using Newtonsoft.Json;
 
 namespace Brio.Authentication
 {
@@ -25,13 +27,30 @@ namespace Brio.Authentication
 
             #endregion
 
-            builder.Services.AddSingleton<BrioDbContext>();
             builder.Services.AddScoped<HttpClient>();
             builder.Services.AddScoped<IConfirmServiceClient, ConfirmServiceClient>();
             builder.Services.AddScoped<IAuthenticationService, AuthenticationService>();
             builder.Services.AddScoped<IUserRepository, UserRepository>();
 
-            builder.Services.AddControllers();
+            builder.Services.AddControllers()
+                .AddNewtonsoftJson(options =>
+                {
+                    options.SerializerSettings.ReferenceLoopHandling = ReferenceLoopHandling.Ignore;
+                });
+
+            #region Configure EF
+
+            builder.Services.AddDbContext<BrioDbContext>(options =>
+            {
+                options.UseSqlServer(builder.Configuration["DatabaseOptions:ConnecrionStringLocal"]);
+            });
+
+            builder.Services.Configure<DatabaseOptions>(options =>
+            {
+                builder.Configuration.GetSection("DatabaseOptions").Bind(options);
+            });
+
+            #endregion
 
             #region Configure Swagger
 

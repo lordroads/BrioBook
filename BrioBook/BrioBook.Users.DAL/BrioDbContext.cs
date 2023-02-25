@@ -1,18 +1,16 @@
-using BrioBook.Users.DAL.Models;
+using Brio.Database.DAL.Models;
+using Microsoft.EntityFrameworkCore;
 
-namespace BrioBook.Users.DAL;
+namespace Brio.Database.DAL;
 
-public class BrioDbContext
+public class BrioDbContext : DbContext
 {
-    //TODO: ���� �� ������������ DB
+    public DbSet<User> Users { get; set; }
+    public DbSet<ConfirmId> ConfirmIds { get; set; }
 
-    public List<User> Users { get; set; }
-    public List<ConfirmId> ConfirmIds { get; set; }
-    public BrioDbContext()
+
+    public BrioDbContext(DbContextOptions options) : base(options)
     {
-        Users = new List<User>();
-        ConfirmIds = new List<ConfirmId>();
     }
-
 
 }

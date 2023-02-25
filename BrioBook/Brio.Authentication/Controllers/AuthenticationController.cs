@@ -25,7 +25,7 @@ public class AuthenticationController : Controller
 
 
     [HttpPost("login")]
-    public ActionResult<AuthenticationDataResponse> Login([FromBody] AuthenticationDataRequest request)
+    public ActionResult<AuthenticationDataResponse> Login([FromForm] AuthenticationDataRequest request)
     {
         var response = _authenticationService.Login(new UserDto
         {
@@ -46,12 +46,12 @@ public class AuthenticationController : Controller
         {
             Succeeded = response.Succeeded,
             Errors = response.Errors,
-            ClaimsPrincipal = _authenticationService.GetClaims(response.user)
+            AuthenticationUserData = _authenticationService.GetClaims(response.user)
         });
     }
 
     [HttpPost("registration")]
-    public ActionResult<RegistrationResponse> Create([FromBody] RegistrationRequest request)
+    public ActionResult<RegistrationResponse> Create([FromForm] RegistrationRequest request)
     {
         var response = _authenticationService.Create(new UserDto
         {
@@ -68,7 +68,7 @@ public class AuthenticationController : Controller
             });
         }
 
-        var confirmId = _confirmServiceClient.CreateConfirmToUser(response.user.UserId);
+        var confirmId = _confirmServiceClient.CreateConfirmToUser(response.user.Id);
 
         if (confirmId is null)
         {

@@ -4,5 +4,5 @@ namespace Brio.Authentication.Models.Response;
 
 public class AuthenticationDataResponse : BaseResponse
 {
-    public ClaimsPrincipal ClaimsPrincipal { get; set; }
+    public AuthenticationUserData AuthenticationUserData { get; set; }
 }

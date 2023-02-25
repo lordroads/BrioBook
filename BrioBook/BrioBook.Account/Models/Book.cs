@@ -1,4 +1,4 @@
-namespace BrioBook.Account.Models;
+namespace BrioBook.Client.Models;
 
 public class Book
 {

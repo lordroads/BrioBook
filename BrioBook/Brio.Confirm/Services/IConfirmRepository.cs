@@ -1,8 +1,8 @@
-using BrioBook.Users.DAL.Models;
+using Brio.Database.DAL.Models;
 
 namespace Brio.Confirm.Services;
 
-public interface IConfirmRepository : IRepository<ConfirmId, string>
+public interface IConfirmRepository : IRepository<ConfirmId, Guid>
 {
 
 }

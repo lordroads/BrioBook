@@ -1,4 +1,4 @@
-namespace BrioBook.Account.Models.Dto;
+namespace BrioBook.Client.Models.Dto;
 
 public class AccountDto
 {

@@ -1,6 +1,6 @@
-using EmployeeService.Models.Dto;
+using BrioBook.Client.Models.Dto;
 
-namespace BrioBook.Account.Models.Requests;
+namespace BrioBook.Client.Models.Response;
 
 public class AuthenticationResponse
 {

@@ -1,4 +1,4 @@
-﻿using BrioBook.Users.DAL.Models;
+﻿using Brio.Database.DAL.Models;
 
 namespace Brio.Authentication.Services;
 
