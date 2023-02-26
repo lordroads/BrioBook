@@ -14,6 +14,7 @@ namespace BrioBook.Account
 
             builder.Services.AddScoped<HttpClient>(); //TODO: Add Polly
             builder.Services.AddScoped<IAuthenticationServiceClient, AuthenticationServiceClient>();
+            builder.Services.AddScoped<IConfirmClient, ConfirmClient>();
 
             #endregion
 

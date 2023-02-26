@@ -12,10 +12,15 @@ namespace BrioBook.Client.Controllers;
 public class AccountController : Controller
 {
     private readonly IAuthenticationServiceClient _authenticateServiceClient;
+    private readonly IConfirmClient _confirmClient;
+    //TODO: private readonly ILogger<AccountController> _logger;
 
-    public AccountController(IAuthenticationServiceClient authenticateServiceClient)
+    public AccountController(
+        IAuthenticationServiceClient authenticateServiceClient, 
+        IConfirmClient confirmClient)
     {
         _authenticateServiceClient = authenticateServiceClient;
+        _confirmClient = confirmClient;
     }
 
     public IActionResult Index(string returnUrl)
@@ -87,10 +92,19 @@ public class AccountController : Controller
         return View(data);
     }
 
-    [AllowAnonymous]
     public IActionResult Confirm(string confirmId)
     {
-        ViewData["confirmId"] = confirmId;
+        if (Guid.TryParse(confirmId, out Guid result))
+        {
+            var response = _confirmClient.SetConfirm(result);
+
+            ViewData["StatusConfirm"] = response.Succeeded;
+            ViewData["ErrorsConfirm"] = response.Errors;
+        }
+        else
+        {
+            ViewData["StatusConfirm"] = false;
+        }
 
         return View();
     }
