@@ -29,29 +29,22 @@ public class AuthenticationServiceClient : IAuthenticationServiceClient
         {
             HttpResponseMessage httpResponse = _httpClient.SendAsync(httpRequest).Result;
 
-            if (httpResponse.IsSuccessStatusCode)
-            {
-                var answer = httpResponse.Content.ReadAsStringAsync().Result;
+            var answer = httpResponse.Content.ReadAsStringAsync().Result;
 
-                LoginResponse? response = 
-                    (LoginResponse)JsonConvert
-                    .DeserializeObject(answer, typeof(LoginResponse));
+            LoginResponse? response =
+                (LoginResponse)JsonConvert
+                .DeserializeObject(answer, typeof(LoginResponse));
 
-                if (!response.Succeeded)
-                {
-                    return null;
-                }
-
-                return response;
-            }
-
-            return null;
+            return response;
 
         }
         catch (Exception ex)
         {
-            Console.WriteLine(ex.Message);
-            return null;
+            return new LoginResponse
+            {
+                Errors = ex.Message,
+                Succeeded = false
+            };
         }
     }
 

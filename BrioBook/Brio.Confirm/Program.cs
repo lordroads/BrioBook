@@ -31,7 +31,7 @@ namespace Brio.Confirm
 
             builder.Services.AddDbContext<BrioDbContext>(options =>
             {
-                options.UseSqlServer(builder.Configuration["DatabaseOptions:ConnecrionStringLocal"]);
+                options.UseSqlServer(builder.Configuration["DatabaseOptions:ConnectionString"]);
             });
 
             builder.Services.Configure<DatabaseOptions>(options =>

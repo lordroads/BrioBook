@@ -87,6 +87,14 @@ public class AccountController : Controller
         return View(data);
     }
 
+    [AllowAnonymous]
+    public IActionResult Confirm(string confirmId)
+    {
+        ViewData["confirmId"] = confirmId;
+
+        return View();
+    }
+
     public async Task<IActionResult> LogOut()
     {
         await HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);

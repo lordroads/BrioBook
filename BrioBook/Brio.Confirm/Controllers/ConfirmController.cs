@@ -29,12 +29,12 @@ public class ConfirmController : Controller
         }); 
     }
 
-    [HttpPost("set-confirm")]
-    public ActionResult<SetConfirmResponse> SetConfirm([FromForm] SetConfirmRequest request)
+    [HttpPost("set-confirm/{confirmId:guid}")]
+    public ActionResult<SetConfirmResponse> SetConfirm([FromRoute]Guid confirmId)
     {
         return Ok(new SetConfirmResponse
         {
-            Succeeded = _confirmService.SetConfirm(request.ConfirmId)
+            Succeeded = _confirmService.SetConfirm(confirmId)
         });
     }
 
