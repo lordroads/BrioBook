@@ -12,7 +12,7 @@ public class ConfirmClient : IConfirmClient
     public ConfirmClient(HttpClient httpClient)
     {
         _httpClient = httpClient;
-        confirmAddress = new Uri("http://localhost:5187");
+        confirmAddress = new Uri(Environment.GetEnvironmentVariable("CONFIRMATION_ADDRESS"));
     }
 
     public SetConfirmResponse SetConfirm(Guid id)

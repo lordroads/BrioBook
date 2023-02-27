@@ -5,7 +5,12 @@
       "launchBrowser": true,
       "launchUrl": "swagger",
       "environmentVariables": {
-        "ASPNETCORE_ENVIRONMENT": "Development"
+        "ASPNETCORE_ENVIRONMENT": "Local",
+        "MAIL_LOGIN": "info@briogrunge.ru",
+        "MAIL_PASSWORD": "Br109run9E",
+        "SMTP_ADDRESS": "smtp.timeweb.ru",
+        "SMTP_PORT": "25",
+        "GETWAY_ADDRESS": "https://localhost:7190/"
       },
       "dotnetRunMessages": true,
       "applicationUrl": "http://localhost:5187"

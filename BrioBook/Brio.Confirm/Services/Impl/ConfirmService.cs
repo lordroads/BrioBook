@@ -12,10 +12,22 @@ public class ConfirmService : IConfirmService
     private readonly IConfirmRepository _confirmRepository;
     private readonly IUserRepository _userRepository;
 
+    private readonly string loginMail;
+    private readonly string passwordMail;
+    private readonly string smtpAddress;
+    private readonly int smtpPort;
+    private readonly string addressGateway;
+
     public ConfirmService(IConfirmRepository confirmRepository, IUserRepository userRepository)
     {
         _confirmRepository = confirmRepository;
         _userRepository = userRepository;
+
+        loginMail = Environment.GetEnvironmentVariable("MAIL_LOGIN");
+        passwordMail = Environment.GetEnvironmentVariable("MAIL_PASSWORD");
+        smtpAddress = Environment.GetEnvironmentVariable("SMTP_ADDRESS");
+        smtpPort = Convert.ToInt32(Environment.GetEnvironmentVariable("SMTP_PORT"));
+        addressGateway = Environment.GetEnvironmentVariable("GETWAY_ADDRESS");
     }
 
     public Guid Create(int userId)
@@ -36,7 +48,7 @@ public class ConfirmService : IConfirmService
         {
 
 
-            string from = "info@briogrunge.ru";
+            string from = loginMail;
 
             MailAddress addressFrom = new MailAddress(from, "Briogrunge Informatio");
             MailAddress addressTo = new MailAddress(mail);
@@ -46,13 +58,13 @@ public class ConfirmService : IConfirmService
             message.Subject = "Подтверждение почты с сайта Briogrunge.";
 
             string htmlString = new MailBuilder()
-                .SetAddressHost("https://localhost:7190/Account/Confirm?ConfirmId=")
+                .SetAddressHost($"{addressGateway}Account/Confirm?ConfirmId=")
                 .SetConfirmId(confirmId.ToString())
                 .BuildMail();
             message.Body = htmlString;
 
-            using SmtpClient client = new SmtpClient("smtp.timeweb.ru", 25);
-            client.Credentials = new NetworkCredential(addressFrom.Address, "Br109run9E");
+            using SmtpClient client = new SmtpClient(smtpAddress, smtpPort);
+            client.Credentials = new NetworkCredential(addressFrom.Address, passwordMail);
             client.EnableSsl = true;
             client.Send(message);
 

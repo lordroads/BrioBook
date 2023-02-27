@@ -5,7 +5,7 @@ namespace BrioBook.Client.Services;
 
 public interface IUsersClient
 {
-    public IList<User> GetAll();
+    public UserGetAllResponse GetAll();
     public SetAdminRoleResponse SetAdminRole(int userId, bool state);
     public DeleteUserResponse DeleteUser(int userId);
 }

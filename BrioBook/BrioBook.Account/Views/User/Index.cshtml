@@ -1,0 +1,50 @@
+﻿@model UserGetAllResponse
+@{
+    ViewData["Title"] = "Пользователи";
+}
+
+@if(Model.Succeeded){
+    if (Model.Users.Any())
+    {
+        <table class="table">
+            <thead>
+                <tr>
+                    <th></th>
+                    <th>Наименование (Login)</th>
+                    <th>Права Admin</th>
+                    <th>Подтверждение почты</th>
+                    <th></th>
+                </tr>
+            </thead>
+            @foreach (var user in Model.Users)
+            {
+                <tr>
+                    <td>
+                        <a asp-action="Delete" asp-route-id="@user.Id" class="text-danger">
+                            <i class="fa-solid fa-trash"></i>
+                        </a>
+                    </td>
+                    <td>
+                        <a asp-action="Details" asp-route-id="@user.Id">@user.Login</a>
+                    </td>
+                    <td>
+                        @(user.IsAdmin ? "Да" : "Нет")
+                    </td>
+                    <td>
+                        @(user.ConfirmEmail ? "Да" : "Нет")
+                    </td>
+                </tr>
+            }
+        </table>
+    }
+    else
+    {
+        <p>Пользователей нет. Странно... а кто тогда ты?</p>
+    }
+}
+else{
+    <div class="text-center">
+        <h1 class="display-4">Ошибка!</h1>
+        <p>@Model.Errors</p>
+    </div>
+}

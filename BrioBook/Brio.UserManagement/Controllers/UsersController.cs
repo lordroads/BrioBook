@@ -1,4 +1,4 @@
-﻿using Brio.Database.DAL.Models;
+﻿using Brio.UserManagement.Models.Responses;
 using Brio.UserManagement.Sevices;
 using Microsoft.AspNetCore.Mvc;
 
@@ -16,9 +16,25 @@ public class UsersController : Controller
 
 
     [HttpGet("get-all")]
-    public ActionResult<IList<User>> GetAll()
+    public ActionResult<UserGetAllResponse> GetAll()
     {
-        return Ok(_userService.GetUsers());
+        try
+        {
+            return Ok(new UserGetAllResponse
+            {
+                Succeeded = true,
+                Users = _userService.GetUsers()
+            });
+        }
+        catch (Exception ex)
+        {
+            return Ok(new UserGetAllResponse 
+            { 
+                Errors = ex.Message,
+                Succeeded = false
+            });
+
+        }
     }
 
 }

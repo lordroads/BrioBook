@@ -12,7 +12,7 @@ public class AuthenticationServiceClient : IAuthenticationServiceClient
     public AuthenticationServiceClient(HttpClient httpClient)
     {
         _httpClient = httpClient;
-        authenticationAddress = new Uri("http://localhost:5001");
+        authenticationAddress = new Uri(Environment.GetEnvironmentVariable("AUTHENTICATION_ADDRESS"));
     }
     public LoginResponse Login(string login, string password)
     {

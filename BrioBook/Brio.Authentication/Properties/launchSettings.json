@@ -5,7 +5,8 @@
       "launchBrowser": true,
       "environmentVariables": {
         "ASPNETCORE_ENVIRONMENT": "Local",
-        "SECRET_KEY": "j&fOM5%kk>BgcFcLt}L7"
+        "SECRET_KEY": "j&fOM5%kk>BgcFcLt}L7",
+        "CONFIRMATION_SERVICE_ADDRESS": "http://localhost:5187"
       },
       "dotnetRunMessages": true,
       "applicationUrl": "http://localhost:5001"

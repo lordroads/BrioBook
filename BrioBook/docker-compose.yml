@@ -2,14 +2,65 @@ version: '3.4'
 
 services:
   briobook.client:
-    image: ${DOCKER_REGISTRY-}briobook-client
+    image: ${DOCKER_REGISTRY-}brio-client
     build:
       context: .
       dockerfile: BrioBook.Account/Dockerfile
+    environment:
+      ASPNETCORE_ENVIRONMENT: "Local"
+      CONFIRMATION_ADDRESS: http://brio.confirmation:80
+      USER_MANAGEMENT_ADDRESS: http://brio.usermanagement:80
+      AUTHENTICATION_ADDRESS: http://brio.authentication:80
+    depends_on:
+     - brio.confirmation
+     - brio.usermanagement
+    ports:
+     - 9001:80
+    networks: 
+     - brio-networks
+
   brio.authentication:
     image: ${DOCKER_REGISTRY-}brio-authentication
     build:
       context: .
       dockerfile: Brio.Authentication/Dockerfile
     environment:
-      SOME_SERVICE: briobook.client
+      ASPNETCORE_ENVIRONMENT: "Local"
+      CONFIRMATION_SERVICE_ADDRESS: http://brio.confirmation:80
+    depends_on:
+     - brio.confirmation
+    ports:
+     - 9002:80
+    networks: 
+     - brio-networks
+
+  brio.confirmation:
+    image: ${DOCKER_REGISTRY-}brio-confirmation
+    build:
+      context: .
+      dockerfile: Brio.Confirm/Dockerfile
+    environment:
+      ASPNETCORE_ENVIRONMENT: "Local"
+      SMTP_ADDRESS: "smtp.timeweb.ru"
+      SMTP_PORT: "25"
+      GETWAY_ADDRESS: http://briobook.client:80
+    ports:
+     - 9003:80
+    networks: 
+     - brio-networks
+
+  brio.usermanagement:
+    image: ${DOCKER_REGISTRY-}brio-user-management
+    build:
+      context: .
+      dockerfile: Brio.UserManagement/Dockerfile
+    environment:
+      ASPNETCORE_ENVIRONMENT: "Local"
+    ports:
+     - 9004:80
+    networks: 
+     - brio-networks
+
+networks:
+  brio-networks:
+    driver: bridge

@@ -7,11 +7,11 @@ EXPOSE 443
 
 FROM mcr.microsoft.com/dotnet/sdk:6.0 AS build
 WORKDIR /src
-COPY ["BrioBook.Account/BrioBook.Client.csproj", "BrioBook.Account/"]
+COPY ["BrioBook.Client/BrioBook.Client.csproj", "BrioBook.Client/"]
 COPY ["BrioBook.Users.DAL/Brio.Database.DAL.csproj", "BrioBook.Users.DAL/"]
-RUN dotnet restore "BrioBook.Account/BrioBook.Client.csproj"
+RUN dotnet restore "BrioBook.Client/BrioBook.Client.csproj"
 COPY . .
-WORKDIR "/src/BrioBook.Account"
+WORKDIR "/src/BrioBook.Client"
 RUN dotnet build "BrioBook.Client.csproj" -c Release -o /app/build
 
 FROM build AS publish
