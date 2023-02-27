@@ -8,15 +8,14 @@ EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Brio.Database.DAL", "BrioBook.Users.DAL\Brio.Database.DAL.csproj", "{B238D149-CA35-4D52-A310-AD5CB119B6B3}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Элементы решения", "Элементы решения", "{58FC89D0-F482-40D8-84F7-91C1A752992C}"
-	ProjectSection(SolutionItems) = preProject
-		DockerFile = DockerFile
-	EndProjectSection
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Brio.Authentication", "Brio.Authentication\Brio.Authentication.csproj", "{957E1A60-0CC3-4490-B4A3-12CDD67B652C}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Brio.Confirmation", "Brio.Confirm\Brio.Confirmation.csproj", "{E3F375B6-B0BC-40D7-AF66-857FCC0F57CB}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Brio.UserManagement", "Brio.UserManagement\Brio.UserManagement.csproj", "{3BE2D76A-DC12-4B8D-B199-AEB77E9595B8}"
+EndProject
+Project("{E53339B2-1760-4266-BCC7-CA923CBCF16C}") = "docker-compose", "docker-compose.dcproj", "{C38BCC1F-0D53-496F-8851-F77B94887801}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -44,6 +43,10 @@ Global
 		{3BE2D76A-DC12-4B8D-B199-AEB77E9595B8}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{3BE2D76A-DC12-4B8D-B199-AEB77E9595B8}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{3BE2D76A-DC12-4B8D-B199-AEB77E9595B8}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C38BCC1F-0D53-496F-8851-F77B94887801}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C38BCC1F-0D53-496F-8851-F77B94887801}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C38BCC1F-0D53-496F-8851-F77B94887801}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C38BCC1F-0D53-496F-8851-F77B94887801}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

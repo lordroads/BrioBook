@@ -1,0 +1,15 @@
+version: '3.4'
+
+services:
+  briobook.client:
+    image: ${DOCKER_REGISTRY-}briobook-client
+    build:
+      context: .
+      dockerfile: BrioBook.Account/Dockerfile
+  brio.authentication:
+    image: ${DOCKER_REGISTRY-}brio-authentication
+    build:
+      context: .
+      dockerfile: Brio.Authentication/Dockerfile
+    environment:
+      SOME_SERVICE: briobook.client

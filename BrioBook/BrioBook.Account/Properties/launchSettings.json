@@ -1,14 +1,21 @@
-﻿{
+{
   "profiles": {
     "BrioBook.Account": {
       "commandName": "Project",
-      "dotnetRunMessages": true,
       "launchBrowser": true,
-      "applicationUrl": "https://localhost:7190;http://localhost:5281",
       "environmentVariables": {
         "ASPNETCORE_ENVIRONMENT": "Development",
         "SECRET_KEY": "j&fOM5%kk>BgcFcLt}L7"
-      }
+      },
+      "dotnetRunMessages": true,
+      "applicationUrl": "https://localhost:7190;http://localhost:5281"
+    },
+    "Docker": {
+      "commandName": "Docker",
+      "launchBrowser": true,
+      "launchUrl": "{Scheme}://{ServiceHost}:{ServicePort}",
+      "publishAllPorts": true,
+      "useSSL": true
     }
   }
 }
