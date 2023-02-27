@@ -15,6 +15,7 @@ namespace BrioBook.Account
             builder.Services.AddScoped<HttpClient>(); //TODO: Add Polly
             builder.Services.AddScoped<IAuthenticationServiceClient, AuthenticationServiceClient>();
             builder.Services.AddScoped<IConfirmClient, ConfirmClient>();
+            builder.Services.AddScoped<IUsersClient, UsersClient>();
 
             #endregion
 
@@ -30,7 +31,6 @@ namespace BrioBook.Account
                     options.LoginPath = "/Account/Index";
                     options.LogoutPath = "/Account/Index";
                 });
-            builder.Services.AddAuthorization();
 
             #endregion
 
