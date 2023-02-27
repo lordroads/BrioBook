@@ -58,7 +58,7 @@ public class ConfirmService : IConfirmService
             message.Subject = "Подтверждение почты с сайта Briogrunge.";
 
             string htmlString = new MailBuilder()
-                .SetAddressHost($"{addressGateway}Account/Confirm?ConfirmId=")
+                .SetAddressHost($"{addressGateway}/Account/Confirm?ConfirmId=")
                 .SetConfirmId(confirmId.ToString())
                 .BuildMail();
             message.Body = htmlString;
