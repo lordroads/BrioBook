@@ -11,7 +11,7 @@
         "AUTHENTICATION_ADDRESS": "http://localhost:5001"
       },
       "dotnetRunMessages": true,
-      "applicationUrl": http://localhost:5281"
+      "applicationUrl": "http://localhost:5281"
     },
     "Docker": {
       "commandName": "Docker",
