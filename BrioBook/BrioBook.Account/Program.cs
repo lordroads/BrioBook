@@ -1,6 +1,8 @@
 using BrioBook.Client.Services;
 using BrioBook.Client.Services.Impl;
 using Microsoft.AspNetCore.Authentication.Cookies;
+using Microsoft.AspNetCore.HttpLogging;
+using NLog.Web;
 
 namespace BrioBook.Account
 {
@@ -34,6 +36,26 @@ namespace BrioBook.Account
 
             #endregion
 
+            #region Configure Logging
+
+            builder.Host.ConfigureLogging(logger =>
+            {
+                logger.ClearProviders();
+                logger.AddConsole();
+            }).UseNLog(new NLogAspNetCoreOptions { RemoveLoggerFactoryFilter = true });
+
+            builder.Services.AddHttpLogging(logging =>
+            {
+                logging.LoggingFields = HttpLoggingFields.All | HttpLoggingFields.RequestQuery;
+                logging.RequestBodyLogLimit = 4096;
+                logging.ResponseBodyLogLimit = 4096;
+                logging.ResponseHeaders.Add("Authorization");
+                logging.ResponseHeaders.Add("X-Real-IP");
+                logging.ResponseHeaders.Add("X-Forwarder-For");
+            });
+
+            #endregion
+
             builder.Services.AddControllersWithViews();
 
             var app = builder.Build();
@@ -47,6 +69,8 @@ namespace BrioBook.Account
             {
                 app.UseDeveloperExceptionPage();
             }
+
+            app.UseHttpLogging();
 
             app.UseHttpsRedirection();
 

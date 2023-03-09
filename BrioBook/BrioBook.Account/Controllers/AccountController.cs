@@ -13,20 +13,24 @@ public class AccountController : Controller
 {
     private readonly IAuthenticationServiceClient _authenticateServiceClient;
     private readonly IConfirmClient _confirmClient;
-    //TODO: private readonly ILogger<AccountController> _logger;
+    private readonly ILogger<AccountController> _logger;
 
     public AccountController(
-        IAuthenticationServiceClient authenticateServiceClient, 
-        IConfirmClient confirmClient)
+        IAuthenticationServiceClient authenticateServiceClient,
+        IConfirmClient confirmClient,
+        ILogger<AccountController> logger)
     {
         _authenticateServiceClient = authenticateServiceClient;
         _confirmClient = confirmClient;
+        _logger = logger;
     }
 
     public IActionResult Index(string returnUrl)
     {
         ViewData["returnUrl"] = returnUrl;
 
+        _logger.LogInformation("Headers:\n" + string.Join('\n', Request.Headers));
+        
         return View();
     }
     private IList<Claim> GetClaims(Dictionary<string, string> pairs)
@@ -45,6 +49,9 @@ public class AccountController : Controller
     public async Task<IActionResult> Index([FromForm] AccountViewModel data, string returnUrl)
     {
         var result = _authenticateServiceClient.Login(data.Login, data.Password);
+
+        _logger.LogInformation($"{data.Login} - autentication is {result.Succeeded}"  + 
+           (result.Succeeded ? "" : $"\nErrors: {result.Errors}"));
 
         if (result.Succeeded & result.AuthenticationUserData is not null)
         {
@@ -73,6 +80,8 @@ public class AccountController : Controller
     {
         ViewData["returnUrl"] = returnUrl;
 
+        _logger.LogInformation("Headers:\n" + string.Join('\n', Request.Headers));
+
         return View();
     }
 
@@ -81,6 +90,9 @@ public class AccountController : Controller
     {
 
         var result = _authenticateServiceClient.Registration(data.Login, data.Password);
+
+        _logger.LogInformation($"{data.Login} - autentication is {result.Succeeded}" +
+           (result.Succeeded ? "" : $"\nErrors: {result.Errors}"));
 
         if (result.Succeeded)
         {
@@ -94,6 +106,8 @@ public class AccountController : Controller
 
     public IActionResult Confirm(string confirmId)
     {
+        _logger.LogInformation("Headers:\n" + string.Join('\n', Request.Headers));
+
         if (Guid.TryParse(confirmId, out Guid result))
         {
             var response = _confirmClient.SetConfirm(result);
@@ -111,6 +125,8 @@ public class AccountController : Controller
 
     public async Task<IActionResult> LogOut()
     {
+        _logger.LogInformation("Headers:\n" + string.Join('\n', Request.Headers));
+
         await HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
 
         return RedirectToAction("Index", "Home");
@@ -119,6 +135,8 @@ public class AccountController : Controller
     public IActionResult AccessDenied(string returnUrl)
     {
         ViewData["returnUrl"] = returnUrl;
+
+        _logger.LogInformation("Headers:\n" + string.Join('\n', Request.Headers));
 
         return View();
     }
